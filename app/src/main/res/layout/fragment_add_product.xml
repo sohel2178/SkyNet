@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding"
+    tools:context="com.imatbd.skynet.NavFragments.AddProductFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                style="@style/MyEditText.Register"
+                android:hint="@string/buy_from"
+                android:id="@+id/buy_from"/>
+
+            <EditText
+                android:layout_marginTop="@dimen/default_padding"
+                style="@style/MyEditText.Register"
+                android:hint="@string/unit_price"
+                android:layout_below="@+id/buy_from"
+                android:inputType="numberDecimal"
+                android:id="@+id/unit_price"/>
+
+            <EditText
+                android:layout_marginTop="@dimen/default_padding"
+                style="@style/MyEditText.Register"
+                android:hint="@string/quantity"
+                android:layout_below="@+id/unit_price"
+                android:inputType="number"
+                android:id="@+id/quantity"/>
+
+            <Button
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/add_product"
+                android:id="@+id/add_product"
+                android:layout_below="@+id/quantity"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

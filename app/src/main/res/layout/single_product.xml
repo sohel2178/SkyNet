@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="@dimen/small_padding"
+        android:padding="@dimen/small_padding"
+        app:cardElevation="@dimen/small_padding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/large_padding"
+                style="@style/Text.Large"
+                android:textColor="@color/black"
+                android:text="Product Name"
+                android:transitionName="title"
+                android:id="@+id/prodName"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/my_divider"
+                android:layout_below="@+id/prodName"
+                android:id="@+id/divider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider"
+                android:id="@+id/middle_container">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:padding="@dimen/small_padding"
+                        android:id="@+id/iv_image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/product_image"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/default_padding">
+
+                    <TextView
+                       style="@style/Text.Medium"
+                        android:id="@+id/txt_des"
+                        android:text="@string/description"/>
+
+                    <TextView
+                        android:paddingLeft="@dimen/medium_padding"
+                        style="@style/Text.Small"
+                        android:id="@+id/tv_desc"
+                        android:layout_below="@+id/txt_des"
+                        android:textColor="@color/background_color"
+                        android:text="@string/description"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/medium_padding"
+                        android:layout_below="@+id/tv_desc"
+                        style="@style/Text.Medium"
+                        android:id="@+id/txt_price"
+                        android:text="@string/unit_price"/>
+
+                    <TextView
+                        android:paddingLeft="@dimen/medium_padding"
+                        style="@style/Text.Small"
+                        android:id="@+id/tv_price"
+                        android:layout_below="@+id/txt_price"
+                        android:textColor="@color/background_color"
+                        android:text="@string/unit_price"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/medium_padding"
+                        android:layout_below="@+id/tv_price"
+                        style="@style/Text.Medium"
+                        android:id="@+id/txt_available_quantity"
+                        android:textColor="@color/sample_blue"
+                        android:text="@string/available_quantity"/>
+
+                    <TextView
+                        android:paddingLeft="@dimen/medium_padding"
+                        style="@style/Text.Small"
+                        android:id="@+id/tv_available_quantity"
+                        android:layout_below="@+id/txt_available_quantity"
+                        android:textColor="@color/background_color"
+                        android:text="@string/available_quantity"/>
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/middle_container"
+                android:padding="@dimen/default_padding">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyButton"
+                    android:text="@string/update_price"
+                    android:id="@+id/btn_update_price"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyButton"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/update_image"
+                    android:id="@+id/btn_update_image"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/MyButton"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/add_quantity"
+                    android:id="@+id/btn_add_quantity"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.imatbd.skynet.Activities.AddProductActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/MaterialAnimations.TextAppearance.Title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/material_animations_primary"
+        android:elevation="@dimen/elevation_header">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/MaterialAnimations.TextAppearance.Title.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:text="@string/add_product" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:padding="@dimen/medium_padding">
+
+        <EditText
+            style="@style/MyEditText.Register"
+            android:hint="Enter Product Name"
+            android:id="@+id/prodName"/>
+
+        <EditText
+            android:layout_marginTop="@dimen/default_padding"
+            style="@style/MyEditText.Register"
+            android:hint="Enter Product Description"
+            android:layout_below="@+id/prodName"
+            android:id="@+id/prodDescription"/>
+
+        <EditText
+            android:layout_marginTop="@dimen/default_padding"
+            style="@style/MyEditText.Register"
+            android:hint="Enter Product Price"
+            android:id="@+id/prodPrice"
+            android:inputType="numberDecimal"
+            android:layout_below="@+id/prodDescription"/>
+
+
+        <Button
+            android:layout_marginTop="@dimen/default_padding"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prodPrice"
+            android:id="@+id/btn_add_product"
+            android:text="@string/add_product"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

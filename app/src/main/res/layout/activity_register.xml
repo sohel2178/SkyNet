@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.imatbd.skynet.Activities.RegisterActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/MaterialAnimations.TextAppearance.Title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/material_animations_primary"
+        android:elevation="@dimen/elevation_header">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/MaterialAnimations.TextAppearance.Title.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:text="@string/app_name" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/default_padding">
+
+        <EditText
+            android:layout_width="match_parent"
+            style="@style/MyEditText.Register"
+            android:hint="@string/code_hint"
+            android:id="@+id/et_code"/>
+
+        <Button
+            android:layout_marginTop="@dimen/default_padding"
+           android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           style="@style/MyButton"
+            android:layout_below="@+id/et_code"
+            android:text="@string/activate"
+            android:id="@+id/btn_activate"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_activate"
+            android:id="@+id/btn_test"
+            android:text="Intent Service Test"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_test"
+            android:id="@+id/btn_query"
+            android:text="Query"/>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.imatbd.skynet.DialogFragments.UploadImageDialog">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding"
+        android:textSize="@dimen/medium_text_size"
+        android:layout_centerHorizontal="true"
+        android:text="@string/selection_option"
+        android:id="@+id/title"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:src="@drawable/my_divider"
+        android:id="@+id/divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/divider">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dialog_icon_size"
+                    android:layout_height="@dimen/dialog_icon_size"
+                    android:src="@drawable/camera"
+                    android:id="@+id/camera"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/camera"
+                    android:padding="@dimen/small_padding"
+                    android:textSize="@dimen/small_text_size"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dialog_icon_size"
+                    android:layout_height="@dimen/dialog_icon_size"
+                    android:src="@drawable/gallery"
+                    android:id="@+id/gallery"/>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gallery"
+                    android:textSize="@dimen/small_text_size"
+                    android:padding="@dimen/small_padding"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

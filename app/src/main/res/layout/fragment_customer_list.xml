@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding"
+    tools:context="com.imatbd.skynet.NavFragments.CustomerListFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_customers">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/plus_icon"
+        android:id="@+id/iv_add"/>
+
+</RelativeLayout>

@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.imatbd.skynet.NavFragments.UpdateProductFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/product_image_height"
+                android:id="@+id/product_image"
+                android:scaleType="fitXY"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/product_image"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    style="@style/ProductText"
+                    android:text="@string/product_name"
+                    android:id="@+id/txt_prod_name"/>
+
+                <EditText
+                    style="@style/MyEditText.Register"
+                    android:id="@+id/prodName"
+                    android:layout_toEndOf="@+id/txt_prod_name"
+                    android:enabled="false"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/default_padding"
+                    style="@style/ProductText"
+                    android:text="@string/description"
+                    android:id="@+id/txt_prod_desc"
+                    android:layout_below="@+id/txt_prod_name"/>
+
+                <EditText
+                    android:layout_toEndOf="@+id/txt_prod_desc"
+                    android:layout_marginTop="@dimen/default_padding"
+                    style="@style/MyEditText.Register"
+                    android:id="@+id/prodDesc"
+                    android:layout_below="@+id/prodName"
+                    android:enabled="false"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/default_padding"
+                    style="@style/ProductText"
+                    android:text="@string/available_quantity"
+                    android:id="@+id/txt_prod_available_quantity"
+                    android:layout_below="@+id/txt_prod_desc"/>
+
+                <EditText
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_toEndOf="@+id/txt_prod_available_quantity"
+                    style="@style/MyEditText.Register"
+                    android:id="@+id/availableQuantity"
+                    android:layout_below="@+id/prodDesc"
+                    android:enabled="false"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/availableQuantity"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:id="@+id/update"
+                    android:text="@string/update"/>
+
+
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">SkyNet</string>
+
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
+
+    <string name="permission_txt">App need to Permission for Camera, Read and Write Data to your External Storage</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="owner">Owner</string>
+    <string name="code_hint">Enter Your Code</string>
+    <string name="activate">Activate</string>
+    <string name="camera">Camera</string>
+    <string name="selection_option">Selection</string>
+    <string name="gallery">Gallery</string>
+    <string name="description">Description</string>
+    <string name="unit_price">Unit Price</string>
+    <string name="available_quantity">Available quantity</string>
+    <string name="update_price">Update Price</string>
+    <string name="update_quantity">Update Quantity</string>
+    <string name="add_quantity">Add Qty</string>
+    <string name="update_image">Update Image</string>
+    <string name="add_product">Add Product</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="enter_agent_name">Enter Agent Name</string>
+    <string name="enter_agent_email">Enter Agent Email</string>
+    <string name="create_agent">Create Agent</string>
+    <string name="send_to">Share Code</string>
+    <string name="enter_customer_name">Enter Customer Name</string>
+    <string name="enter_customer_email">Enter Customer Email</string>
+    <string name="enter_customer_phone_number">Enter Customer Phone Number</string>
+    <string name="enter_shop_name">Enter Shop Name</string>
+    <string name="enter_shop_address">Enter Shop Address</string>
+    <string name="create_customer">Create Customer</string>
+    <string name="update">update</string>
+    <string name="product_name">Product Name:</string>
+    <string name="buy_from">Buy from</string>
+    <string name="quantity">Quantity</string>
+</resources>

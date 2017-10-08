@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="icon_size">64dp</dimen>
+    <dimen name="default_padding">10dp</dimen>
+
+    <dimen name="small_padding">4dp</dimen>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="large_padding">16dp</dimen>
+
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="medium_text_size">18sp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="extra_large_text_size">30sp</dimen>
+
+    <dimen name="button_text_size">12sp</dimen>
+
+    <dimen name="elevation_header">4dp</dimen>
+
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_double">16dp</dimen>
+    <dimen name="spacing_huge">72dp</dimen>
+
+    <integer name="anim_duration_very_long">1500</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="anim_duration_medium">300</integer>
+
+
+    <!-- profile Image Dimension-->
+
+    <dimen name="profile_image_dim">100dp</dimen>
+
+    <dimen name="nav_icon_size">30dp</dimen>
+    <dimen name="edit_text_height">43dp</dimen>
+    <dimen name="edit_text_padding">65dp</dimen>
+
+    <dimen name="login_icon_dim">48dp</dimen>
+    <dimen name="button_height">44dp</dimen>
+
+    <dimen name="course_item_width">200dp</dimen>
+    <dimen name="course_item_height">150dp</dimen>
+    <dimen name="description_text">24sp</dimen>
+    <dimen name="nav_info_height">150dp</dimen>
+    <dimen name="nav_drawer_width">300dp</dimen>
+    <dimen name="nav_camera_dim">40dp</dimen>
+    <dimen name="dialog_icon_size">48dp</dimen>
+    <dimen name="product_image_height">250dp</dimen>
+</resources>
