@@ -49,7 +49,8 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
         setContentView(R.layout.activity_main);
 
         if(getIntent().getExtras()!=null){
-            Log.d("JJJJJJ",getIntent().getStringExtra(Constant.ORDER_ID));
+            //Log.d("JJJJJJ",getIntent().getStringExtra(Constant.ORDER_ID));
+
         }
 
         setupWindowAnimations();
