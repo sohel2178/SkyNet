@@ -21,6 +21,8 @@ public class Constant {
     public static final String ADMIN_ID = "adminId";
     public static final String AGENT_ID = "agentId";
 
+    public static final String ORDER_ID = "order_id";
+
     // Navigation Drawer Constant
     public static final String HOME = "Home";
     public static final String AGENT_LIST = "Agent List";

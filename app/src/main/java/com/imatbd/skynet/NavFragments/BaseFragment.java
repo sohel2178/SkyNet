@@ -45,6 +45,13 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    public void setCartText(int value){
+        if(getActivity() instanceof MainActivity){
+            MainActivity activity = (MainActivity) getActivity();
+            activity.setCartText(value);
+        }
+    }
+
     public void transitFragment(Fragment newFragment){
         // Get the Existing Fragment
         Fragment oldFragment = getFragmentManager().findFragmentById(R.id.main_container);

@@ -16,6 +16,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.imatbd.skynet.Activities.AddProductActivity;
+import com.imatbd.skynet.Adapter.CartAdapter;
 import com.imatbd.skynet.Adapter.ProductAdapter;
 import com.imatbd.skynet.AppUtility.MyUtils;
 import com.imatbd.skynet.AppUtility.UserData;
@@ -31,13 +34,18 @@ import com.imatbd.skynet.DialogFragments.UploadImageDialog;
 import com.imatbd.skynet.Firebase.MyDatabaseReference;
 import com.imatbd.skynet.Listener.ProductClickListener;
 import com.imatbd.skynet.MainActivity;
+import com.imatbd.skynet.Model.CartItem;
+import com.imatbd.skynet.Model.Notification;
+import com.imatbd.skynet.Model.Order;
 import com.imatbd.skynet.Model.Product;
 import com.imatbd.skynet.Model.User;
 import com.imatbd.skynet.NavigationDrawer;
 import com.imatbd.skynet.R;
 import com.imatbd.skynet.Service.StorageCommunicationService;
 import com.imatbd.skynet.Utility.Constant;
+import com.imatbd.skynet.Utility.CustomAnimator;
 import com.imatbd.skynet.Utility.Method;
+import com.imatbd.skynet.Volley.NotificationSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +54,26 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment implements ProductClickListener,
-        ChildEventListener{
+        ChildEventListener,CartAdapter.ItemRemoveListener{
 
-    private RecyclerView rvProduct;
+    private RecyclerView rvProduct,rvCart;
     private FloatingActionButton fabPlus;
+    private Button btnOrderNow,btnNotiTest;
     private List<Product> productList;
 
     private ProductAdapter adapter;
 
+    private CartAdapter cartAdapter;
+
     private Query productQuery;
 
+    private DatabaseReference orderRef;
+
     private Product currentClickedProduct;
+
+    // Two Container
+    private RelativeLayout prodContainer,cartContainer;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -72,6 +89,9 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
         adapter = new ProductAdapter(getContext(),productList);
         adapter.setListener(this);
 
+        cartAdapter = new CartAdapter(getContext());
+        cartAdapter.setItemRemoveLIstener(this);
+
 
     }
 
@@ -85,6 +105,8 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
         }else{
             adminId= user.getAdminId();
         }
+
+        orderRef = myDatabaseReference.getOrderRef();
 
         productQuery =productRef.orderByChild(Constant.ADMIN_ID).equalTo(adminId);
         productQuery.addChildEventListener(this);
@@ -106,7 +128,7 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
         super.onResume();
         setTitle(Constant.HOME);
 
-        if(UserData.getInstance(getContext()).getUser().getUserType()==3){
+        if(getUserType()==3){
             showCartIcon();
         }
 
@@ -133,14 +155,33 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
     }
 
     private void initView(View view) {
+        // init Container Here
+        prodContainer = view.findViewById(R.id.prod_container);
+        cartContainer = view.findViewById(R.id.cart_container);
+
         fabPlus = view.findViewById(R.id.fabPlus);
+        btnOrderNow = view.findViewById(R.id.order_now);
+        btnNotiTest = view.findViewById(R.id.notification_test);
         rvProduct = view.findViewById(R.id.rv_product);
         rvProduct.setLayoutManager(new LinearLayoutManager(getContext()));
         rvProduct.setAdapter(adapter);
 
-        if(UserData.getInstance(getContext()).getUser().getUserType()==1){
+        rvCart = view.findViewById(R.id.rv_cart);
+        rvCart.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvCart.setAdapter(cartAdapter);
+
+
+        if(getUserType()==1){
             fabPlus.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void showCartContainer(){
+        CustomAnimator.slide(cartContainer, prodContainer,CustomAnimator.DIRECTION_LEFT, 400);
+    }
+
+    public void hideCartContainer(){
+        CustomAnimator.reversePrevious();
     }
 
     @Override
@@ -158,6 +199,62 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
                     mainActivity.transitionTo(new Intent(getContext(), AddProductActivity.class));
                 }
 
+            }
+        });
+
+        btnOrderNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Push Order to database
+
+                final Order order = new Order(0,cartAdapter.getCartItemList(),
+                        getUserId(),getUser().getAgentId(),getUser().getAdminId());
+
+                orderRef.push().setValue(order, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                        final String id = databaseReference.getKey();
+
+                        orderRef.child(id).child("order_id").setValue(id, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                                // Notify Agent for this new Order
+                                getUser().getAgentId();
+
+                                NotificationSender notificationSender = new NotificationSender(getContext());
+                                notificationSender.sendOrderNotification(id,getUser().getAgentId());
+
+
+                            }
+                        });
+
+                    }
+                });
+
+
+
+
+
+
+                // Clear All Item from Cart Adapter
+                cartAdapter.clearCart();
+                setCartText(cartItemCount());
+                CustomAnimator.reversePrevious();
+
+            }
+        });
+
+        btnNotiTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                NotificationSender notificationSender = new NotificationSender(getContext());
+               /* notificationSender.sendNotification(notification,
+                        "eDdTraUj-Pw:APA91bETAjS_NbSLSJxPvhOIc7s4Njnoo7jHU9XZhA5B9TpUyWu8fT4CKeKcXKp8fLS-W4kpX2YS1c8XBmp4dMmsce1vD1vJUcXX9gJdC3XxGKg0fyV9GuOjwJZqpnzZqCDhdDIZzNfO");*/
+
+                notificationSender.sendOrderNotification("NewOrderId","eDdTraUj-Pw:APA91bETAjS_NbSLSJxPvhOIc7s4Njnoo7jHU9XZhA5B9TpUyWu8fT4CKeKcXKp8fLS-W4kpX2YS1c8XBmp4dMmsce1vD1vJUcXX9gJdC3XxGKg0fyV9GuOjwJZqpnzZqCDhdDIZzNfO");
             }
         });
     }
@@ -206,8 +303,30 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
                 //transitFragmentWithSharedElement(updateProductFragment,holder.ivProductImage,transitionImageName);
                 //addNextFragment(true,updateProductFragment,holder.ivProductImage,transitionImageName);
                 break;
+
+            case 5: // Add to Cart Click
+
+                CartItem cartItem = new CartItem(currentClickedProduct);
+
+                if(cartAdapter.isCartAdded(cartItem)){
+                    Toast.makeText(getContext(), "Item already added in the Cart", Toast.LENGTH_SHORT).show();
+                }else{
+                    // Add item to the Adapter
+                    cartAdapter.addCartItem(cartItem);
+
+                    setCartText(cartAdapter.getItemCount());
+                }
+
+
+
+                break;
         }
 
+    }
+
+
+    public int cartItemCount(){
+        return cartAdapter.getItemCount();
     }
 
 
@@ -234,6 +353,16 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
 
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void removeItem() {
+        setCartText(cartItemCount());
+
+        // if All Item Remove Hide Cart View
+        if(cartItemCount()==0){
+            CustomAnimator.reversePrevious();
         }
     }
 
@@ -267,9 +396,6 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
 
 
         }
-    }
-
-    private void updateImageInStorageandSaveUrlinDatabase() {
     }
 
     // Firebase Child Event Listener
@@ -329,4 +455,6 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
         Intent intent = getStorageIntent(method,id,path);
         getContext().startService(intent);
     }
+
+
 }

@@ -148,7 +148,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
     public class ProductHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView tvName,tvDesc,tvPrice,tvAvailableQuantity;
-        public ImageView ivProductImage;
+        public ImageView ivProductImage,ivCartPlus;
         Button btnUpdateImage,btnUpdatePrice,btnAddQuantity;
 
         public ProductHolder(View itemView) {
@@ -159,6 +159,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             tvPrice = itemView.findViewById(R.id.tv_price);
             tvAvailableQuantity = itemView.findViewById(R.id.tv_available_quantity);
             ivProductImage = itemView.findViewById(R.id.iv_image);
+            ivCartPlus = itemView.findViewById(R.id.cart_plus);
 
             btnUpdateImage = itemView.findViewById(R.id.btn_update_image);
             btnUpdatePrice = itemView.findViewById(R.id.btn_update_price);
@@ -172,10 +173,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
                 btnUpdateImage.setOnClickListener(this);
                 btnUpdatePrice.setOnClickListener(this);
                 btnAddQuantity.setOnClickListener(this);
-            }else if(user.getUserType()==2 || user.getUserType()==3){
+            }else if(user.getUserType()==2){
                 btnUpdateImage.setVisibility(View.GONE);
                 btnUpdatePrice.setVisibility(View.GONE);
                 btnAddQuantity.setVisibility(View.GONE);
+            }else if(user.getUserType()==3){
+                btnUpdateImage.setVisibility(View.GONE);
+                btnUpdatePrice.setVisibility(View.GONE);
+                btnAddQuantity.setVisibility(View.GONE);
+
+                ivCartPlus.setVisibility(View.VISIBLE);
+                ivCartPlus.setOnClickListener(this);
             }
 
             itemView.setOnClickListener(this);
@@ -201,6 +209,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             }else if(view.equals(btnAddQuantity)){
                 if(listener!=null){
                     listener.onItemClick(getAdapterPosition(),3,itemView);
+                }
+
+            }else if(view.equals(ivCartPlus)){
+                if(listener!=null){
+                    listener.onItemClick(getAdapterPosition(),5,itemView);
                 }
 
             }else if(view.equals(itemView)){

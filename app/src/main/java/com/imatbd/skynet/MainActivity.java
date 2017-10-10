@@ -3,8 +3,11 @@ package com.imatbd.skynet;
 import android.*;
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -12,12 +15,15 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.imatbd.skynet.Activities.BaseDetailActivity;
 import com.imatbd.skynet.Activities.RegisterActivity;
 import com.imatbd.skynet.AppUtility.UserLocalStore;
+import com.imatbd.skynet.NavFragments.CartFragment;
 import com.imatbd.skynet.NavFragments.HomeFragment;
+import com.imatbd.skynet.Utility.Constant;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -27,13 +33,24 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
 
     private Handler handler = new Handler();
 
-    private TextView tvTitle;
-    private ImageView ivCart;
+    private TextView tvTitle,tvCartText;
+    private RelativeLayout ivCart;
+    private ImageView ivCartIcon;
+
+    private boolean isCartClick=false;
+
+    private HomeFragment homeFragment;
+
+    private int cartCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(getIntent().getExtras()!=null){
+            Log.d("JJJJJJ",getIntent().getStringExtra(Constant.ORDER_ID));
+        }
 
         setupWindowAnimations();
 
@@ -47,10 +64,13 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
             setUpNavigationDrawer();
 
             tvTitle = (TextView) findViewById(R.id.title);
-            ivCart = (ImageView) findViewById(R.id.cart);
+            tvCartText = findViewById(R.id.cart_text);
+            ivCartIcon = findViewById(R.id.cart_icon);
+            ivCart = (RelativeLayout) findViewById(R.id.cart);
             ivCart.setOnClickListener(this);
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new HomeFragment())
+            homeFragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,homeFragment)
                     .commit();
 
             Log.d("KKK","MainActivity OnCreate Called");
@@ -130,6 +150,30 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
     public void onClick(View view) {
         if(view.equals(ivCart)){
 
+            if(isCartClick){
+                isCartClick=false;
+                homeFragment.hideCartContainer();
+            }else{
+                if(homeFragment.cartItemCount()!=0){
+                    isCartClick=true;
+                    homeFragment.showCartContainer();
+                }
+
+            }
+
+
+
         }
     }
+
+    public void setCartText(int value){
+        if(value!=0){
+            tvCartText.setText(String.valueOf(value));
+            ivCartIcon.setImageResource(R.drawable.cart_red);
+        }else{
+            tvCartText.setText(String.valueOf(""));
+            ivCartIcon.setImageResource(R.drawable.cart);
+        }
+    }
+
 }
