@@ -50,6 +50,7 @@
         <service android:name=".Service.StorageCommunicationService" />
 
         <activity android:name=".Activities.AddProductActivity" />
+        <activity android:name=".Activities.OrderActivity"></activity>
     </application>
 
 </manifest>

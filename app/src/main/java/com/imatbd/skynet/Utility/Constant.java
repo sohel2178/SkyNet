@@ -17,6 +17,8 @@ public class Constant {
     public static final int PICTURE_REQUEST=8000;
     public static final int SERVICE_REQ_CODE = 1000;
 
+    public static final String ACTION = "com.imatbd.skynet.myaction";
+
     // Firebase Constant
     public static final String ADMIN_ID = "adminId";
     public static final String AGENT_ID = "agentId";

@@ -35,6 +35,13 @@ public class AddProductActivity extends BaseDetailActivity implements View.OnCli
         initView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showNotificationInToolbar();
+    }
+
     private void initView() {
 
         etProdName = (EditText) findViewById(R.id.prodName);

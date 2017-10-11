@@ -207,42 +207,15 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
             public void onClick(View view) {
                 //Push Order to database
 
-                final Order order = new Order(0,cartAdapter.getCartItemList(),
-                        getUserId(),getUser().getAgentId(),getUser().getAdminId());
-
-                orderRef.push().setValue(order, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-                        final String id = databaseReference.getKey();
-
-                        orderRef.child(id).child("order_id").setValue(id, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-                                // Notify Agent for this new Order
-                                getUser().getAgentId();
-
-                                NotificationSender notificationSender = new NotificationSender(getContext());
-                                notificationSender.sendOrderNotification(id,getUser().getAgentId());
-
-
-                            }
-                        });
-
+                if(isNetworkConnected()){
+                    if(cartItemCount()>0){
+                        placeOrder();
+                    }else{
+                        Toast.makeText(getContext(), "Cart is Empty", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-
-
-
-
-
-                // Clear All Item from Cart Adapter
-                cartAdapter.clearCart();
-                setCartText(cartItemCount());
-                CustomAnimator.reversePrevious();
-
+                }else{
+                    Toast.makeText(getContext(), "Please turn On your Internet Connection before place order", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -255,6 +228,41 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
                         "eDdTraUj-Pw:APA91bETAjS_NbSLSJxPvhOIc7s4Njnoo7jHU9XZhA5B9TpUyWu8fT4CKeKcXKp8fLS-W4kpX2YS1c8XBmp4dMmsce1vD1vJUcXX9gJdC3XxGKg0fyV9GuOjwJZqpnzZqCDhdDIZzNfO");*/
 
                 notificationSender.sendOrderNotification("NewOrderId","eDdTraUj-Pw:APA91bETAjS_NbSLSJxPvhOIc7s4Njnoo7jHU9XZhA5B9TpUyWu8fT4CKeKcXKp8fLS-W4kpX2YS1c8XBmp4dMmsce1vD1vJUcXX9gJdC3XxGKg0fyV9GuOjwJZqpnzZqCDhdDIZzNfO");
+            }
+        });
+    }
+
+
+    private void placeOrder(){
+        final Order order = new Order(0,cartAdapter.getCartItemList(),
+                getUserId(),getUser().getAgentId(),getUser().getAdminId());
+
+        orderRef.push().setValue(order, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                final String id = databaseReference.getKey();
+
+                orderRef.child(id).child("order_id").setValue(id, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                        // Notify Agent for this new Order
+                        getUser().getAgentId();
+
+                        NotificationSender notificationSender = new NotificationSender(getContext());
+                        notificationSender.sendOrderNotification(id,getUser().getAgentId());
+
+
+                        // Clear All Item from Cart Adapter
+                        cartAdapter.clearCart();
+                        setCartText(cartItemCount());
+                        CustomAnimator.reversePrevious();
+
+
+                    }
+                });
+
             }
         });
     }

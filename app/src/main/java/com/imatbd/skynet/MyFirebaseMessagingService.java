@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.imatbd.skynet.Utility.Constant;
 
 /**
  * Created by Genius 03 on 7/22/2017.
@@ -36,11 +37,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
-        Log.d("TTT","YYYY");
+        Log.d("TTT","hjhhjhj");
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+
+            Log.d("HHHH",remoteMessage.getData().get(Constant.ORDER_ID));
+
+            Intent intent = new Intent(Constant.ACTION);
+            intent.putExtra(Constant.ORDER_ID,remoteMessage.getData().get(Constant.ORDER_ID));
+            sendBroadcast(intent);
 
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
@@ -56,7 +63,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
-            sendNotification(remoteMessage.getNotification().getBody());
+            //sendNotification(remoteMessage.getNotification().getBody());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM

@@ -2,6 +2,7 @@ package com.imatbd.skynet.AppUtility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.imatbd.skynet.Model.User;
 
@@ -11,6 +12,8 @@ import com.imatbd.skynet.Model.User;
 
 public class UserData {
     private static final String SP_NAME ="userData";
+
+    private static final String NOTI_COUNT ="notification_count";
 
     SharedPreferences userLocalDatabase;
 
@@ -71,5 +74,26 @@ public class UserData {
 
         spEditor.putString("user_photo",url);
         spEditor.apply();
+    }
+
+    public int getNotificationCount(){
+        Log.d("JJJJ","Method Called");
+       return userLocalDatabase.getInt(NOTI_COUNT,0);
+    }
+
+    private void setNotificationCount(int count){
+        SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putInt(NOTI_COUNT,count);
+        spEditor.apply();
+    }
+
+    public void resetNotificationCount(){
+        setNotificationCount(0);
+    }
+
+    public void increaseNotificationCount(){
+        int prev = getNotificationCount();
+        setNotificationCount(prev+1);
+
     }
 }

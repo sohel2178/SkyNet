@@ -33,11 +33,9 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
 
     private Handler handler = new Handler();
 
-    private TextView tvTitle,tvCartText;
-    private RelativeLayout ivCart;
-    private ImageView ivCartIcon;
 
-    private boolean isCartClick=false;
+
+
 
     private HomeFragment homeFragment;
 
@@ -50,6 +48,12 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
 
         if(getIntent().getExtras()!=null){
             //Log.d("JJJJJJ",getIntent().getStringExtra(Constant.ORDER_ID));
+
+            String orderId = getIntent().getStringExtra(Constant.ORDER_ID);
+
+            if(orderId!=null){
+                startOrderActivity(orderId);
+            }
 
         }
 
@@ -64,11 +68,6 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
         if(UserLocalStore.getInstance(getApplicationContext()).isRegistered()){
             setUpNavigationDrawer();
 
-            tvTitle = (TextView) findViewById(R.id.title);
-            tvCartText = findViewById(R.id.cart_text);
-            ivCartIcon = findViewById(R.id.cart_icon);
-            ivCart = (RelativeLayout) findViewById(R.id.cart);
-            ivCart.setOnClickListener(this);
 
             homeFragment = new HomeFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_container,homeFragment)
@@ -94,22 +93,15 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
         }
     }
 
-    public void setTitle(String title){
-        if(tvTitle!= null){
-            tvTitle.setText(title);
-        }
-    }
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    public void setTitle(String title,String trName){
-        if(tvTitle!=null){
-            tvTitle.setTransitionName(trName);
-            tvTitle.setText(title);
-        }
-    }
+        showNotificationInToolbar();
 
-    public void showCart(){
-        if(ivCart!=null){
-            ivCart.setVisibility(View.VISIBLE);
+        if(getUserType()==3){
+            Log.d("Meth","Method Call From Main Activity");
+            showCart();
         }
     }
 
@@ -149,32 +141,9 @@ public class MainActivity extends BaseDetailActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        if(view.equals(ivCart)){
 
-            if(isCartClick){
-                isCartClick=false;
-                homeFragment.hideCartContainer();
-            }else{
-                if(homeFragment.cartItemCount()!=0){
-                    isCartClick=true;
-                    homeFragment.showCartContainer();
-                }
-
-            }
-
-
-
-        }
     }
 
-    public void setCartText(int value){
-        if(value!=0){
-            tvCartText.setText(String.valueOf(value));
-            ivCartIcon.setImageResource(R.drawable.cart_red);
-        }else{
-            tvCartText.setText(String.valueOf(""));
-            ivCartIcon.setImageResource(R.drawable.cart);
-        }
-    }
+
 
 }

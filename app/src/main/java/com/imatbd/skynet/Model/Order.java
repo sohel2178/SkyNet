@@ -16,6 +16,8 @@ public class Order implements Serializable{
     private String agentId;
     private String adminId;
 
+    private String agentId_and_order_state;
+
 
     public Order() {
     }
@@ -27,6 +29,7 @@ public class Order implements Serializable{
         this.customerId = customerId;
         this.agentId = agentId;
         this.adminId = ownerId;
+        this.agentId_and_order_state=agentId+"|"+order_state;
     }
 
     public Order(int order_state, List<CartItem> cart_item_list, String customerId, String agentId, String ownerId) {
@@ -80,5 +83,13 @@ public class Order implements Serializable{
 
     public void setAdminId(String adminId) {
         this.adminId = adminId;
+    }
+
+    public String getAgentId_and_order_state() {
+        return agentId_and_order_state;
+    }
+
+    public void setAgentId_and_order_state(String agentId_and_order_state) {
+        this.agentId_and_order_state = agentId_and_order_state;
     }
 }

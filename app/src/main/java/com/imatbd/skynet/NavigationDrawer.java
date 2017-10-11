@@ -283,9 +283,15 @@ public class NavigationDrawer extends BaseFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_camera:
-                UploadImageDialog uploadImageDialog = new UploadImageDialog();
-                uploadImageDialog.setTargetFragment(this, Constant.PICTURE_REQUEST);
-                uploadImageDialog.show(getFragmentManager(), Constant.DEFAULAT_FRAGMENT_TAG);
+
+                if(isNetworkConnected()){
+                    UploadImageDialog uploadImageDialog = new UploadImageDialog();
+                    uploadImageDialog.setTargetFragment(this, Constant.PICTURE_REQUEST);
+                    uploadImageDialog.show(getFragmentManager(), Constant.DEFAULAT_FRAGMENT_TAG);
+                }else{
+                    Toast.makeText(getContext(), "Please turn On Your Internet Connection", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
         }
