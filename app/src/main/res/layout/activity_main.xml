@@ -48,12 +48,14 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/cart"
                         android:id="@+id/cart_icon"
+                        android:padding="@dimen/medium_padding"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Text.Large"
+                        style="@style/Text.Medium"
+                        android:padding="@dimen/medium_padding"
                         android:textColor="@color/green"
                         android:textStyle="bold"
                         android:layout_centerInParent="true"
@@ -75,6 +77,7 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/noti"
                         android:id="@+id/noti_icon"
+                        android:padding="@dimen/medium_padding"
                         />
 
                     <TextView
@@ -84,6 +87,7 @@
                         android:textColor="@color/green"
                         android:textStyle="bold"
                         android:layout_centerInParent="true"
+                        android:padding="@dimen/medium_padding"
                         android:id="@+id/noti_text"/>
 
                 </RelativeLayout>

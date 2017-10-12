@@ -17,6 +17,7 @@ public class Order implements Serializable{
     private String adminId;
 
     private String agentId_and_order_state;
+    private long order_time;
 
 
     public Order() {
@@ -30,6 +31,7 @@ public class Order implements Serializable{
         this.agentId = agentId;
         this.adminId = ownerId;
         this.agentId_and_order_state=agentId+"|"+order_state;
+        this.order_time = System.currentTimeMillis();
     }
 
     public Order(int order_state, List<CartItem> cart_item_list, String customerId, String agentId, String ownerId) {
@@ -91,5 +93,13 @@ public class Order implements Serializable{
 
     public void setAgentId_and_order_state(String agentId_and_order_state) {
         this.agentId_and_order_state = agentId_and_order_state;
+    }
+
+    public long getOrder_time() {
+        return order_time;
+    }
+
+    public void setOrder_time(long order_time) {
+        this.order_time = order_time;
     }
 }

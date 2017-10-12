@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.imatbd.skynet.Activities.AddProductActivity;
+import com.imatbd.skynet.Activities.TestActivity;
 import com.imatbd.skynet.Adapter.CartAdapter;
 import com.imatbd.skynet.Adapter.ProductAdapter;
 import com.imatbd.skynet.AppUtility.MyUtils;
@@ -47,6 +48,7 @@ import com.imatbd.skynet.Utility.CustomAnimator;
 import com.imatbd.skynet.Utility.Method;
 import com.imatbd.skynet.Volley.NotificationSender;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -222,12 +224,9 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
         btnNotiTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                NotificationSender notificationSender = new NotificationSender(getContext());
-               /* notificationSender.sendNotification(notification,
-                        "eDdTraUj-Pw:APA91bETAjS_NbSLSJxPvhOIc7s4Njnoo7jHU9XZhA5B9TpUyWu8fT4CKeKcXKp8fLS-W4kpX2YS1c8XBmp4dMmsce1vD1vJUcXX9gJdC3XxGKg0fyV9GuOjwJZqpnzZqCDhdDIZzNfO");*/
-
-                notificationSender.sendOrderNotification("NewOrderId","eDdTraUj-Pw:APA91bETAjS_NbSLSJxPvhOIc7s4Njnoo7jHU9XZhA5B9TpUyWu8fT4CKeKcXKp8fLS-W4kpX2YS1c8XBmp4dMmsce1vD1vJUcXX9gJdC3XxGKg0fyV9GuOjwJZqpnzZqCDhdDIZzNfO");
+                Intent intent = new Intent(getContext(), TestActivity.class);
+                intent.putExtra("data", (Serializable) cartAdapter.getCartItemList());
+                startActivity(intent);
             }
         });
     }

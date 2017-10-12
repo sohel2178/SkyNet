@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Visibility;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,13 +62,8 @@ public class BaseDetailActivity extends AppCompatActivity {
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             activateNotifition();
-
-
-
             Toast.makeText(context, "Broad Cast Receive", Toast.LENGTH_SHORT).show();
-            Log.d("HHHH","Broad Cast Receive");
 
         }
     };
@@ -272,9 +266,7 @@ public class BaseDetailActivity extends AppCompatActivity {
     }
 
     public void showCart(){
-        Log.d("Meth","Method Call From Main Activity");
         if(rlCart!=null){
-            Log.d("Meth","Object Not Null");
             rlCart.setVisibility(View.VISIBLE);
         }
     }
@@ -298,10 +290,8 @@ public class BaseDetailActivity extends AppCompatActivity {
     private void handleCartClick(){
 
         if(getSupportFragmentManager().findFragmentById(R.id.main_container) instanceof HomeFragment){
-            Log.d("JJJJ","Fragment Test Passed");
             HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
             if(isCartClick){
-                Log.d("JJJJ","Cart Clicked");
                 isCartClick=false;
                 homeFragment.hideCartContainer();
             }else{
