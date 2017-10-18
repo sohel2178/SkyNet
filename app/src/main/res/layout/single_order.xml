@@ -37,6 +37,7 @@
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     style="@style/Text.Small"
+                    android:textColor="@color/theme_black_primary"
                     android:id="@+id/customer_address"
                     android:gravity="start"
                     android:text="Customer Adress"
@@ -89,6 +90,14 @@
                         android:id="@+id/accept"
                         android:layout_alignParentEnd="true"
                         android:text="@string/accept"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/approve"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/approve"/>
 
                 </RelativeLayout>
 

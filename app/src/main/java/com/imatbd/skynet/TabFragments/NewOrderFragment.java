@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,7 @@ import com.imatbd.skynet.R;
 public class NewOrderFragment extends BaseFragment implements ChildEventListener {
 
     private RecyclerView rvOrders;
-
     private OrderAdapter orderAdapter;
-
     private Query orderQuery;
 
 
@@ -48,9 +47,28 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
 
         MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
         DatabaseReference orderRef = myDatabaseReference.getOrderRef();
-        orderQuery = orderRef.orderByChild("agentId_and_order_state").equalTo(user.getId()+"|"+"0");
 
-        orderQuery.addChildEventListener(this);
+        switch (user.getUserType()){
+            case 1:
+                orderQuery = orderRef.orderByChild("adminId_and_order_state").equalTo(user.getId()+"|"+"1");
+                break;
+
+            case 2:
+                orderQuery = orderRef.orderByChild("agentId_and_order_state").equalTo(user.getId()+"|"+"0");
+                break;
+
+            case 3:
+                orderQuery = orderRef.orderByChild("customerId_and_order_state").equalTo(user.getId()+"|"+"0");
+                break;
+        }
+
+        if(orderQuery!=null){
+            orderQuery.addChildEventListener(this);
+        }
+
+
+
+
     }
 
     @Override
@@ -81,7 +99,10 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
 
     @Override
     public void onDestroy() {
-        orderQuery.removeEventListener(this);
+        if(orderQuery!=null){
+            orderQuery.removeEventListener(this);
+        }
+
         super.onDestroy();
     }
 
@@ -98,10 +119,24 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
     @Override
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+        Order order = dataSnapshot.getValue(Order.class);
+
+        if(order!=null){
+            orderAdapter.removeItem(order);
+        }
+
     }
 
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+        Order order = dataSnapshot.getValue(Order.class);
+
+        Log.d("JJJJJ",order.getOrder_id());
+
+        if(order!=null){
+            orderAdapter.removeItem(order);
+        }
 
     }
 

@@ -1,5 +1,8 @@
 package com.imatbd.skynet.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +12,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
     private String id;
     private String name;
+    private String category;
     private double price;
     private String desciption;
     private String imageUrl;
@@ -19,10 +23,11 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String id, String name, double price, String desciption,
+    public Product(String id, String name,String category, double price, String desciption,
                    String imageUrl, String ownerId,int availableQuantity) {
         this.id = id;
         this.name = name;
+        this.category = category;
         this.price = price;
         this.desciption = desciption;
         this.imageUrl = imageUrl;
@@ -31,8 +36,8 @@ public class Product implements Serializable {
         this.createdTime = System.currentTimeMillis();
     }
 
-    public Product(String name,String desciption,double price,String ownerId){
-        this("",name,price,desciption,"",ownerId,0);
+    public Product(String name,String category,String desciption,double price,String ownerId){
+        this("",name,category,price,desciption,"",ownerId,0);
     }
 
     public String getId() {
@@ -95,6 +100,14 @@ public class Product implements Serializable {
         this.availableQuantity = availableQuantity;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public long getCreatedTime() {
         return createdTime;
     }
@@ -102,4 +115,5 @@ public class Product implements Serializable {
     public void setCreatedTime(long createdTime) {
         this.createdTime = createdTime;
     }
+
 }

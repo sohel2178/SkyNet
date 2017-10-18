@@ -144,6 +144,124 @@ public class NotificationSender {
 
     }
 
+    private void sendCancelNoti(String orderId,String token){
+        JSONObject mainJsonObject = new JSONObject();
+
+        JSONObject notificationObject = new JSONObject();
+        JSONObject dataObject = new JSONObject();
+        try {
+            notificationObject.put("title","Cancel Order");
+            notificationObject.put("body","Your Order Has been canceled");
+            notificationObject.put("sound","default");
+
+            dataObject.put(Constant.ORDER_ID,orderId);
+
+            mainJsonObject.put("to",token);
+            mainJsonObject.put("notification",notificationObject);
+            mainJsonObject.put("data",dataObject);
+
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL,mainJsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    //TODO: handle success
+
+                    Log.d("RESPONSE",response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    //TODO: handle failure
+                    Log.d("ERROR",error.toString());
+                }
+            }){
+
+
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", CONTENT_TYPE);
+                    headers.put("Authorization", AUTHORIZATION_KEY);
+                    return headers;
+                }
+
+            };
+            Volley.newRequestQueue(context).add(jsonRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void customNotification(String orderId,String token,String title,String body){
+
+        JSONObject mainJsonObject = new JSONObject();
+
+        JSONObject notificationObject = new JSONObject();
+        JSONObject dataObject = new JSONObject();
+        try {
+            notificationObject.put("title",title);
+            notificationObject.put("body",body);
+            notificationObject.put("sound","default");
+
+            dataObject.put(Constant.ORDER_ID,orderId);
+
+            mainJsonObject.put("to",token);
+            mainJsonObject.put("notification",notificationObject);
+            mainJsonObject.put("data",dataObject);
+
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL,mainJsonObject, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    //TODO: handle success
+
+                    Log.d("RESPONSE",response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    //TODO: handle failure
+                    Log.d("ERROR",error.toString());
+                }
+            }){
+
+
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", CONTENT_TYPE);
+                    headers.put("Authorization", AUTHORIZATION_KEY);
+                    return headers;
+                }
+
+            };
+            Volley.newRequestQueue(context).add(jsonRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void sendCustomNotification(final String orderId, String id, final String title, final String body){
+        MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
+        myDatabaseReference.getUserRef().child(id).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String token = dataSnapshot.getValue(String.class);
+
+                customNotification(orderId,token,title,body);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     public void sendOrderNotification(final String orderId, String id){
 
@@ -164,5 +282,22 @@ public class NotificationSender {
 
 
 
+    }
+
+    public void cancelOrderNotification(final String orderId, String id){
+        MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
+        myDatabaseReference.getUserRef().child(id).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String token = dataSnapshot.getValue(String.class);
+
+                sendCancelNoti(orderId,token);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
