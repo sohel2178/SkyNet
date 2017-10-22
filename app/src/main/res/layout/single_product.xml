@@ -26,11 +26,20 @@
                 android:transitionName="title"
                 android:id="@+id/prodName"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text.Medium"
+                android:padding="@dimen/default_padding"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/small_padding"
+                android:id="@+id/view_count"/>
+
             <ImageView
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:padding="@dimen/small_padding"
-                android:layout_alignParentEnd="true"
+                android:layout_toLeftOf="@+id/view_count"
                 android:layout_marginEnd="@dimen/small_padding"
                 android:src="@drawable/cart_plus"
                 android:visibility="gone"

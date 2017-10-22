@@ -101,8 +101,15 @@
         <EditText
             android:layout_marginTop="@dimen/default_padding"
             style="@style/MyEditText.Register"
-            android:hint="Enter Product Description"
+            android:hint="Enter Product Category"
             android:layout_below="@+id/prodName"
+            android:id="@+id/prodCategory"/>
+
+        <EditText
+            android:layout_marginTop="@dimen/default_padding"
+            style="@style/MyEditText.Register"
+            android:hint="Enter Product Description"
+            android:layout_below="@+id/prodCategory"
             android:id="@+id/prodDescription"/>
 
         <EditText

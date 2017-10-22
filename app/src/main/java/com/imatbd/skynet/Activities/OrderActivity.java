@@ -27,4 +27,16 @@ public class OrderActivity extends BaseDetailActivity {
 
 
     }
+
+
+
+    @Override
+    public void showCartContainer() {
+
+    }
+
+    @Override
+    public void hideCartContainer() {
+
+    }
 }

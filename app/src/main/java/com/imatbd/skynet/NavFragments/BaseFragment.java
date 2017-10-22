@@ -12,8 +12,11 @@ import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
 import com.imatbd.skynet.AppUtility.MyUtils;
+import com.imatbd.skynet.Firebase.MyDatabaseReference;
 import com.imatbd.skynet.MainActivity;
+import com.imatbd.skynet.Model.Product;
 import com.imatbd.skynet.Model.User;
 import com.imatbd.skynet.R;
 import com.imatbd.skynet.Utility.Constant;
@@ -69,7 +72,7 @@ public class BaseFragment extends Fragment {
 
         //oldFragment.setReenterTransition(enterFade);
 
-        fragmentTransaction.replace(R.id.main_container, newFragment).addToBackStack(null);
+        fragmentTransaction.replace(R.id.main_container, newFragment,newFragment.getClass().getName()).addToBackStack(newFragment.getClass().getName());
         fragmentTransaction.commitAllowingStateLoss();
     }
 
@@ -180,4 +183,23 @@ public class BaseFragment extends Fragment {
     public boolean isNetworkConnected(){
         return MyUtils.isNetworkConnected(getContext());
     }
+
+    public void increaseViewCount(final Product product) {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(isNetworkConnected()){
+                    MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
+                    DatabaseReference prodRef = myDatabaseReference.getProductRef();
+                    prodRef.child(product.getId()).child("viewCount").setValue(product.getViewCount()+1);
+                }
+            }
+        });
+        thread.start();
+
+
+
+    }
+
 }

@@ -31,6 +31,7 @@ public class Constant {
     public static final String CREATE_AGENT = "Create Agent";
     public static final String CUSTOMER_LIST = "Customer List";
     public static final String CREATE_CUSTOMER = "Create Customer";
+    public static final String PRODUCTS = "Products";
 
     public static final String TRANSITION_NAME = "tr_name";
     public static final String TRANSITION_TITLE = "tr_title";

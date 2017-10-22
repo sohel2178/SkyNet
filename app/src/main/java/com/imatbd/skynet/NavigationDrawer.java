@@ -39,6 +39,7 @@ import com.imatbd.skynet.NavFragments.AgentListFragment;
 import com.imatbd.skynet.NavFragments.BaseFragment;
 import com.imatbd.skynet.NavFragments.CustomerListFragment;
 import com.imatbd.skynet.NavFragments.HomeFragment;
+import com.imatbd.skynet.NavFragments.ProductsFragmenet;
 import com.imatbd.skynet.Service.StorageCommunicationService;
 import com.imatbd.skynet.Utility.Constant;
 import com.imatbd.skynet.Utility.Method;
@@ -326,6 +327,11 @@ public class NavigationDrawer extends BaseFragment implements View.OnClickListen
             case Constant.HOME:
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
                 transitFragment(new HomeFragment());
+                break;
+
+            case Constant.PRODUCTS:
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+                transitFragment(new ProductsFragmenet());
                 break;
 
             case Constant.AGENT_LIST:

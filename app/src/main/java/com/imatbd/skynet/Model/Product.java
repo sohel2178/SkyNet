@@ -19,6 +19,7 @@ public class Product implements Serializable {
     private String adminId;
     private int availableQuantity;
     private long createdTime;
+    private long viewCount;
 
     public Product() {
     }
@@ -34,6 +35,7 @@ public class Product implements Serializable {
         this.adminId = ownerId;
         this.availableQuantity = availableQuantity;
         this.createdTime = System.currentTimeMillis();
+        this.viewCount = 0;
     }
 
     public Product(String name,String category,String desciption,double price,String ownerId){
@@ -116,4 +118,11 @@ public class Product implements Serializable {
         this.createdTime = createdTime;
     }
 
+    public long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(long viewCount) {
+        this.viewCount = viewCount;
+    }
 }

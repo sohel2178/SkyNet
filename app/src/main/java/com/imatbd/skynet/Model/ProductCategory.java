@@ -1,34 +1,41 @@
 package com.imatbd.skynet.Model;
 
-import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 
+import android.content.Context;
+
+import com.imatbd.skynet.Adapter.ProductAdapter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Genius 03 on 10/18/2017.
  */
 
-public class ProductCategory implements ParentObject {
+public class ProductCategory {
 
-    private List<Object> productList;
+    private List<Product> productList;
     private String category;
+    private boolean isExpand;
+    private ProductAdapter productAdapter;
 
-    public ProductCategory(String category) {
-        this.category = category;
+
+    public ProductCategory(Product product, Context context) {
+        this.category = product.getCategory();
+        productList = new ArrayList<>();
+        productList.add(product);
+        this.isExpand = false;
+        this.productAdapter = new ProductAdapter(context,productList);
     }
 
-    @Override
-    public List<Object> getChildObjectList() {
+
+    public List<Product> getProductList() {
         return productList;
     }
 
-    @Override
-    public void setChildObjectList(List<Object> list) {
-        this.productList = list;
-    }
 
     public void addProduct(Product product){
-        productList.add(product);
+        this.productAdapter.addProduct(product);
     }
 
     public String getCategory() {
@@ -37,5 +44,25 @@ public class ProductCategory implements ParentObject {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public boolean isExpand() {
+        return isExpand;
+    }
+
+    public void setExpand(boolean expand) {
+        isExpand = expand;
+    }
+
+    public ProductAdapter getProductAdapter() {
+        return productAdapter;
+    }
+
+    public void setProductAdapter(ProductAdapter productAdapter) {
+        this.productAdapter = productAdapter;
     }
 }

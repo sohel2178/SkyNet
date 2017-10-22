@@ -24,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.imatbd.skynet.Adapter.OrderViewPagerAdapter;
+import com.imatbd.skynet.AppUtility.MyUtils;
 import com.imatbd.skynet.AppUtility.UserData;
+import com.imatbd.skynet.MainActivity;
 import com.imatbd.skynet.Model.User;
 import com.imatbd.skynet.NavFragments.HomeFragment;
 import com.imatbd.skynet.NavigationDrawer;
@@ -40,7 +42,7 @@ import com.imatbd.skynet.Utility.TransitionHelper;
  * Created by Genius 03 on 8/28/2017.
  */
 
-public class BaseDetailActivity extends AppCompatActivity {
+public abstract class BaseDetailActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
 
@@ -287,18 +289,29 @@ public class BaseDetailActivity extends AppCompatActivity {
 
     }
 
+    public abstract void showCartContainer();
+    public abstract void hideCartContainer();
+
     private void handleCartClick(){
+
+        if(isCartClick){
+            isCartClick=false;
+            hideCartContainer();
+        }else{
+            isCartClick=true;
+            showCartContainer();
+        }
+
+
 
         if(getSupportFragmentManager().findFragmentById(R.id.main_container) instanceof HomeFragment){
             HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
-            if(isCartClick){
-                isCartClick=false;
-                homeFragment.hideCartContainer();
-            }else{
-                isCartClick=true;
-                homeFragment.showCartContainer();
-            }
+
         }
 
+    }
+
+    public boolean isNetworkConnected(){
+        return MyUtils.isNetworkConnected(getApplicationContext());
     }
 }

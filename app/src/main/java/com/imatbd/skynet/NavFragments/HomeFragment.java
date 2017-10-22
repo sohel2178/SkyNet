@@ -73,8 +73,8 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
 
     private Product currentClickedProduct;
 
-    // Two Container
-    private RelativeLayout prodContainer,cartContainer;
+    private RelativeLayout prodContainer;
+
 
 
     public HomeFragment() {
@@ -159,7 +159,6 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
     private void initView(View view) {
         // init Container Here
         prodContainer = view.findViewById(R.id.prod_container);
-        cartContainer = view.findViewById(R.id.cart_container);
 
         fabPlus = view.findViewById(R.id.fabPlus);
         btnOrderNow = view.findViewById(R.id.order_now);
@@ -178,13 +177,7 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
         }
     }
 
-    public void showCartContainer(){
-        CustomAnimator.slide(cartContainer, prodContainer,CustomAnimator.DIRECTION_LEFT, 400);
-    }
 
-    public void hideCartContainer(){
-        CustomAnimator.reversePrevious();
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -267,11 +260,10 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
     }
 
     @Override
-    public void onItemClick(int position, int updateType,View view) {
+    public void onItemClick(Product product,int position, int updateType,View view) {
 
-        currentClickedProduct = productList.get(position);
 
-        switch (updateType){
+        /*switch (updateType){
             case 1:
 
                 // Open Dialog Fragment Take Pick and Save its Result in OnActivity Result
@@ -327,7 +319,7 @@ public class HomeFragment extends BaseFragment implements ProductClickListener,
 
 
                 break;
-        }
+        }*/
 
     }
 

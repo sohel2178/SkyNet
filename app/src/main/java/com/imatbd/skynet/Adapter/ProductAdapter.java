@@ -25,6 +25,7 @@ import com.imatbd.skynet.Model.User;
 import com.imatbd.skynet.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     private ProductClickListener listener;
 
 
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductAdapter(Context context,List<Product> productList) {
         this.context = context;
         this.productList = productList;
         this.inflater = LayoutInflater.from(context);
@@ -71,6 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         holder.tvName.setText(product.getName());
         holder.tvDesc.setText(product.getDesciption());
         holder.tvPrice.setText(String.valueOf(product.getPrice()));
+        holder.tvViewCount.setText(String.valueOf(product.getViewCount()));
         holder.tvAvailableQuantity.setText(String.valueOf(product.getAvailableQuantity()));
 
 
@@ -147,7 +149,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
 
     public class ProductHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView tvName,tvDesc,tvPrice,tvAvailableQuantity;
+        public TextView tvName,tvDesc,tvPrice,tvAvailableQuantity,tvViewCount;
         public ImageView ivProductImage,ivCartPlus;
         Button btnUpdateImage,btnUpdatePrice,btnAddQuantity;
 
@@ -157,6 +159,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
             tvName = itemView.findViewById(R.id.prodName);
             tvDesc = itemView.findViewById(R.id.tv_desc);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            tvViewCount = itemView.findViewById(R.id.view_count);
             tvAvailableQuantity = itemView.findViewById(R.id.tv_available_quantity);
             ivProductImage = itemView.findViewById(R.id.iv_image);
             ivCartPlus = itemView.findViewById(R.id.cart_plus);
@@ -198,27 +201,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
             if(view.equals(btnUpdateImage)){
                 if(listener!=null){
-                    listener.onItemClick(getAdapterPosition(),1,itemView);
+                    listener.onItemClick(productList.get(getAdapterPosition()),getAdapterPosition(),1,itemView);
                 }
 
             }else if(view.equals(btnUpdatePrice)){
                 if(listener!=null){
-                    listener.onItemClick(getAdapterPosition(),2,itemView);
+                    listener.onItemClick(productList.get(getAdapterPosition()),getAdapterPosition(),2,itemView);
                 }
 
             }else if(view.equals(btnAddQuantity)){
                 if(listener!=null){
-                    listener.onItemClick(getAdapterPosition(),3,itemView);
+                    listener.onItemClick(productList.get(getAdapterPosition()),getAdapterPosition(),3,itemView);
                 }
 
             }else if(view.equals(ivCartPlus)){
                 if(listener!=null){
-                    listener.onItemClick(getAdapterPosition(),5,itemView);
+                    listener.onItemClick(productList.get(getAdapterPosition()),getAdapterPosition(),5,itemView);
                 }
 
             }else if(view.equals(itemView)){
                 if(listener!=null){
-                    listener.onItemClick(getAdapterPosition(),4,itemView);
+                    listener.onItemClick(productList.get(getAdapterPosition()),getAdapterPosition(),4,itemView);
                 }
 
             }

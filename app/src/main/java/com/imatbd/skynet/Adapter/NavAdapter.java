@@ -42,6 +42,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavHolder> {
     private void initList(int userType) {
         navDataList = new ArrayList<>();
         navDataList.add(new NavData(0, Constant.HOME, R.drawable.home));
+        navDataList.add(new NavData(0, Constant.PRODUCTS, R.drawable.products));
 
         switch (userType){
             case 1:

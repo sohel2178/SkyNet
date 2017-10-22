@@ -143,6 +143,16 @@ public class RegisterActivity extends BaseDetailActivity implements View.OnClick
 
     }
 
+    @Override
+    public void showCartContainer() {
+
+    }
+
+    @Override
+    public void hideCartContainer() {
+
+    }
+
     private class MyResultReceiver extends ResultReceiver{
 
         public MyResultReceiver(Handler handler) {

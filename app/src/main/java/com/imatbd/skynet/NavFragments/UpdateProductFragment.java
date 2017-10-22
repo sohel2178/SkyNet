@@ -2,6 +2,7 @@ package com.imatbd.skynet.NavFragments;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -108,8 +109,14 @@ public class UpdateProductFragment extends BaseFragment implements View.OnClickL
             Log.d("GGGG","Inside Test");
             etName.setEnabled(true);
             etDesc.setEnabled(true);
+        }else{
+            btnUpdate.setVisibility(View.GONE);
         }
+
+        increaseViewCount(product);
     }
+
+
 
     @Override
     public void onClick(View view) {

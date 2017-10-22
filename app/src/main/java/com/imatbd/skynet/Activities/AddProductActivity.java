@@ -15,7 +15,7 @@ import com.imatbd.skynet.R;
 
 public class AddProductActivity extends BaseDetailActivity implements View.OnClickListener{
 
-    private EditText etProdName,etProdDescription,etProdPrice;
+    private EditText etProdName,etProductCategory,etProdDescription,etProdPrice;
     private Button btnAddProduct;
 
     private DatabaseReference prodRef;
@@ -42,9 +42,20 @@ public class AddProductActivity extends BaseDetailActivity implements View.OnCli
         showNotificationInToolbar();
     }
 
+    @Override
+    public void showCartContainer() {
+
+    }
+
+    @Override
+    public void hideCartContainer() {
+
+    }
+
     private void initView() {
 
         etProdName = (EditText) findViewById(R.id.prodName);
+        etProductCategory = (EditText) findViewById(R.id.prodCategory);
         etProdDescription = (EditText) findViewById(R.id.prodDescription);
         etProdPrice = (EditText) findViewById(R.id.prodPrice);
 
@@ -56,10 +67,11 @@ public class AddProductActivity extends BaseDetailActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         String prodName = etProdName.getText().toString().trim();
+        String category = etProductCategory.getText().toString().trim();
         String prodDesc = etProdDescription.getText().toString().trim();
         String prodPrice = etProdPrice.getText().toString().trim();
 
-        Product product = new Product(prodName,prodDesc,Double.parseDouble(prodPrice),
+        Product product = new Product(prodName,category,prodDesc,Double.parseDouble(prodPrice),
                 UserData.getInstance(getApplicationContext()).getUser().getId());
 
         prodRef.push().setValue(product, new DatabaseReference.CompletionListener() {
