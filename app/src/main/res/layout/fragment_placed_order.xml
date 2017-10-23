@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/small_padding"
-    tools:context="com.imatbd.skynet.TabFragments.CompletedOrderFragment">
+    tools:context="com.imatbd.skynet.TabFragments.PlaceOrderFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

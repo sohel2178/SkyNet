@@ -18,20 +18,19 @@ import com.imatbd.skynet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompletedOrderFragment extends BaseFragment {
+public class CancelOrderFragment extends BaseFragment {
     private RecyclerView rvOrders;
 
     private OrderAdapter orderAdapter;
 
 
-    public CompletedOrderFragment() {
+    public CancelOrderFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         orderAdapter = new OrderAdapter(getContext());
     }
 
@@ -39,7 +38,7 @@ public class CompletedOrderFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_completed_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_cancel_order, container, false);
         initView(view);
         return view;
     }
@@ -48,6 +47,7 @@ public class CompletedOrderFragment extends BaseFragment {
         rvOrders = view.findViewById(R.id.rv_orders);
         rvOrders.setLayoutManager(new LinearLayoutManager(getContext()));
         rvOrders.setAdapter(orderAdapter);
+
     }
 
     @Override

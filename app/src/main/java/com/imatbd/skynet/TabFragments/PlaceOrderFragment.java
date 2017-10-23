@@ -27,14 +27,15 @@ import com.imatbd.skynet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewOrderFragment extends BaseFragment implements ChildEventListener {
+public class PlaceOrderFragment extends BaseFragment implements ChildEventListener {
 
     private RecyclerView rvOrders;
     private OrderAdapter orderAdapter;
+
     private Query orderQuery;
 
 
-    public NewOrderFragment() {
+    public PlaceOrderFragment() {
         // Required empty public constructor
     }
 
@@ -49,16 +50,12 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
         DatabaseReference orderRef = myDatabaseReference.getOrderRef();
 
         switch (user.getUserType()){
-            case 1:
-                orderQuery = orderRef.orderByChild("adminId_and_order_state").equalTo(user.getId()+"|"+"1");
-                break;
-
             case 2:
-                orderQuery = orderRef.orderByChild("agentId_and_order_state").equalTo(user.getId()+"|"+"0");
+                orderQuery = orderRef.orderByChild("agentId_and_order_state").equalTo(user.getId()+"|"+0);
                 break;
 
             case 3:
-                orderQuery = orderRef.orderByChild("customerId_and_order_state").equalTo(user.getId()+"|"+"0");
+                orderQuery = orderRef.orderByChild("customerId_and_order_state").equalTo(user.getId()+"|"+0);
                 break;
         }
 
@@ -66,16 +63,14 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
             orderQuery.addChildEventListener(this);
         }
 
-
-
-
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_new_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_placed_order, container, false);
         initView(view);
         return view;
     }
@@ -86,22 +81,10 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
         rvOrders.setAdapter(orderAdapter);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        orderQuery.removeEventListener(this);
-        super.onPause();
-    }
 
     @Override
     public void onDestroy() {
-        if(orderQuery!=null){
-            orderQuery.removeEventListener(this);
-        }
+        orderQuery.removeEventListener(this);
 
         super.onDestroy();
     }
@@ -121,9 +104,13 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
 
         Order order = dataSnapshot.getValue(Order.class);
 
-        if(order!=null){
+        Log.d("HHHH",order.getOrder_state()+"");
+
+        if(order.getOrder_state()!=0){
             orderAdapter.removeItem(order);
         }
+
+
 
     }
 
@@ -132,11 +119,8 @@ public class NewOrderFragment extends BaseFragment implements ChildEventListener
 
         Order order = dataSnapshot.getValue(Order.class);
 
-        Log.d("JJJJJ",order.getOrder_id());
+        orderAdapter.removeItem(order);
 
-        if(order!=null){
-            orderAdapter.removeItem(order);
-        }
 
     }
 

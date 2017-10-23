@@ -26,14 +26,15 @@ import android.widget.Toast;
 import com.imatbd.skynet.Adapter.OrderViewPagerAdapter;
 import com.imatbd.skynet.AppUtility.MyUtils;
 import com.imatbd.skynet.AppUtility.UserData;
-import com.imatbd.skynet.MainActivity;
 import com.imatbd.skynet.Model.User;
 import com.imatbd.skynet.NavFragments.HomeFragment;
 import com.imatbd.skynet.NavigationDrawer;
 import com.imatbd.skynet.R;
 import com.imatbd.skynet.TabFragments.AcceptedOrderFragment;
+import com.imatbd.skynet.TabFragments.CancelOrderFragment;
+import com.imatbd.skynet.TabFragments.ForwardedOrderFragment;
 import com.imatbd.skynet.TabFragments.CompletedOrderFragment;
-import com.imatbd.skynet.TabFragments.NewOrderFragment;
+import com.imatbd.skynet.TabFragments.PlaceOrderFragment;
 import com.imatbd.skynet.Utility.Constant;
 import com.imatbd.skynet.Utility.TransitionHelper;
 
@@ -60,6 +61,9 @@ public abstract class BaseDetailActivity extends AppCompatActivity {
     private NavigationDrawer drawerFragment;
 
     private UserData userData;
+
+
+    private OrderViewPagerAdapter pagerAdapter;
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
@@ -184,11 +188,20 @@ public abstract class BaseDetailActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager){
-        OrderViewPagerAdapter adapter = new OrderViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new NewOrderFragment(), "NEW ORDER");
-        adapter.addFragment(new AcceptedOrderFragment(), "ACCEPTED ORDER");
-        adapter.addFragment(new CompletedOrderFragment(), "COMPLETED ORDER");
-        viewPager.setAdapter(adapter);
+        pagerAdapter = new OrderViewPagerAdapter(getSupportFragmentManager());
+
+        if(getUserType()==3 || getUserType()==2){
+            pagerAdapter.addFragment(new PlaceOrderFragment(), "PLACED");
+        }
+        pagerAdapter.addFragment(new ForwardedOrderFragment(), "FORWARDED");
+        pagerAdapter.addFragment(new AcceptedOrderFragment(), "ACCEPTED");
+        pagerAdapter.addFragment(new CompletedOrderFragment(), "COMPLETED");
+        pagerAdapter.addFragment(new CancelOrderFragment(), "CANCELED");
+        viewPager.setAdapter(pagerAdapter);
+    }
+
+    public OrderViewPagerAdapter getPagerAdapter(){
+        return pagerAdapter;
     }
 
     public void showNotificationInToolbar(){

@@ -142,16 +142,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
     }
 
     public void cancelOrder(final Order order){
-        Log.d("HHHHH",order.getOrder_id());
-        orderRef.child(order.getOrder_id()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("HHHHH","OnSuccess Called");
-                //removeItem(order);
-                Toast.makeText(context, "Order Cancel Successfully", Toast.LENGTH_SHORT).show();
+        DatabaseReference ref = orderRef.child(order.getOrder_id());
 
+        final String orderId = order.getOrder_id();
+        final String customerId = order.getCustomerId();
+        final String adminId = order.getAdminId();
+
+        order.setOrder_state(4);
+        order.setAgentId_and_order_state(order.getAgentId()+"|"+order.getOrder_state());
+        order.setCustomerId_and_order_state(order.getCustomerId()+"|"+order.getOrder_state());
+        order.setAdminId_and_order_state(order.getAdminId()+"|"+order.getOrder_state());
+
+        ref.setValue(order, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 NotificationSender notificationSender = new NotificationSender(context);
-                notificationSender.cancelOrderNotification(order.getOrder_id(),order.getCustomerId());
+                notificationSender.sendCustomNotification(orderId,customerId,"Order Request","Your order Canceled");
             }
         });
     }

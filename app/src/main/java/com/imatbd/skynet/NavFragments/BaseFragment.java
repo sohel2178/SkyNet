@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.imatbd.skynet.AppUtility.MyUtils;
 import com.imatbd.skynet.Firebase.MyDatabaseReference;
 import com.imatbd.skynet.MainActivity;
+import com.imatbd.skynet.Model.Order;
 import com.imatbd.skynet.Model.Product;
 import com.imatbd.skynet.Model.User;
 import com.imatbd.skynet.R;
@@ -199,6 +200,14 @@ public class BaseFragment extends Fragment {
         thread.start();
 
 
+
+    }
+
+    public void addOrder(Order order){
+
+    }
+
+    public void removeOrder(Order order){
 
     }
 

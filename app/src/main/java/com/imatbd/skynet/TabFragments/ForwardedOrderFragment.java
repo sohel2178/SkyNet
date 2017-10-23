@@ -27,20 +27,18 @@ import com.imatbd.skynet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AcceptedOrderFragment extends BaseFragment implements ChildEventListener {
+public class ForwardedOrderFragment extends BaseFragment implements ChildEventListener{
 
     private RecyclerView rvOrders;
 
     private OrderAdapter orderAdapter;
+
     private Query orderQuery;
 
 
-    public AcceptedOrderFragment() {
+    public ForwardedOrderFragment() {
         // Required empty public constructor
     }
-
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,30 +52,30 @@ public class AcceptedOrderFragment extends BaseFragment implements ChildEventLis
 
         switch (user.getUserType()){
             case 1:
-                orderQuery = orderRef.orderByChild("adminId_and_order_state").equalTo(user.getId()+"|"+2);
+                orderQuery = orderRef.orderByChild("adminId_and_order_state").equalTo(user.getId()+"|"+1);
                 break;
 
             case 2:
-                orderQuery = orderRef.orderByChild("agentId_and_order_state").equalTo(user.getId()+"|"+2);
+                orderQuery = orderRef.orderByChild("agentId_and_order_state").equalTo(user.getId()+"|"+1);
                 break;
 
             case 3:
-                orderQuery = orderRef.orderByChild("customerId_and_order_state").equalTo(user.getId()+"|"+2);
+                orderQuery = orderRef.orderByChild("customerId_and_order_state").equalTo(user.getId()+"|"+1);
                 break;
         }
 
         if(orderQuery!=null){
             orderQuery.addChildEventListener(this);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_accepted_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_forwarded_order, container, false);
         initView(view);
-
         return view;
     }
 
@@ -85,6 +83,13 @@ public class AcceptedOrderFragment extends BaseFragment implements ChildEventLis
         rvOrders = view.findViewById(R.id.rv_orders);
         rvOrders.setLayoutManager(new LinearLayoutManager(getContext()));
         rvOrders.setAdapter(orderAdapter);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        orderQuery.removeEventListener(this);
+        super.onDestroy();
     }
 
 
@@ -102,9 +107,11 @@ public class AcceptedOrderFragment extends BaseFragment implements ChildEventLis
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
         Order order = dataSnapshot.getValue(Order.class);
 
-        if(order.getOrder_state()!=2){
+        if(order.getOrder_state()!=1){
             orderAdapter.removeItem(order);
         }
+
+
 
     }
 
@@ -124,4 +131,46 @@ public class AcceptedOrderFragment extends BaseFragment implements ChildEventLis
     public void onCancelled(DatabaseError databaseError) {
 
     }
+
+   /* @Override
+    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        Order order = dataSnapshot.getValue(Order.class);
+        Log.d("JJJJJ",order.getOrder_id());
+        if(order!=null){
+            orderAdapter.addOrder(order);
+        }
+
+    }
+
+    @Override
+    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        Order order = dataSnapshot.getValue(Order.class);
+
+        if(order!=null){
+            orderAdapter.removeItem(order);
+        }
+
+    }
+
+    @Override
+    public void onChildRemoved(DataSnapshot dataSnapshot) {
+        Order order = dataSnapshot.getValue(Order.class);
+
+        Log.d("JJJJJ",order.getOrder_id());
+
+        if(order!=null){
+            orderAdapter.removeItem(order);
+        }
+
+    }
+
+    @Override
+    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
+    }*/
 }

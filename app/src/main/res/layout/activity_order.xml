@@ -13,8 +13,7 @@
             style="@style/MaterialAnimations.TextAppearance.Title"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/material_animations_primary"
-            android:elevation="@dimen/elevation_header">
+            android:background="@color/material_animations_primary">
 
             <TextView
                 android:id="@+id/title"
@@ -94,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/material_animations_primary"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabTextColor="@color/text_color_white"
             app:tabSelectedTextColor="@color/sample_yellow"
             app:tabGravity="fill"/>
